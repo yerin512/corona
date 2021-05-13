@@ -33,9 +33,24 @@ const Contents = () => {
                 const death = cur.Deaths;
                 const recovered = cur.Recovered;
 
+                const findItem = acc.find(a=> a.year === year && a.year === year && a.month === month);
+
+                if(!findItem){
+                    acc.push({year, month, date, confirmed, active, death, recovered})
+                }
+
+                if(findItem && findItem.date < date){
+                    findItem.active = active;
+                    findItem.death = death;
+                    findItem.date = date;
+                    findItem.year = year;
+                    findItem.recovered = recovered;
+                    findItem.confirmed = confirmed;
+                }
                 return acc;
 
-            })
+            }, [])
+            console.log(arr)
         }
 
         fetchEvents();
